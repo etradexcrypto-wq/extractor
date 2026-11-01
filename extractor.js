@@ -2,6 +2,8 @@
 
 const path = require('node:path');
 const os = require('node:os');
+// Make pdf-parse's optional canvas integration visible to Vercel's file tracer.
+require('@napi-rs/canvas');
 const { PDFParse } = require('pdf-parse');
 const mammoth = require('mammoth');
 const JSZip = require('jszip');
