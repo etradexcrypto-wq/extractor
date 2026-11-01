@@ -4,8 +4,6 @@
 const path = require('node:path');
 const os = require('node:os');
 
-require('pdf-parse/worker');
-const { PDFParse } = require('pdf-parse');
 const mammoth = require('mammoth');
 const JSZip = require('jszip');
 
@@ -176,14 +174,9 @@ async function extractFileText(file) {
   }
 
   if (ext === '.pdf') {
-    const parser = new PDFParse({ data: buffer });
-
-    try {
-      const parsed = await parser.getText();
-      return parsed.text || '';
-    } finally {
-      await parser.destroy();
-    }
+    const pdfParse = require('pdf-parse');
+    const parsed = await pdfParse(buffer);
+    return parsed.text || '';
   }
 
   if (ext === '.docx') {
