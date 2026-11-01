@@ -15,7 +15,7 @@ const ALLOWED_DOMAINS = new Set([
   'icloud.com'
 ]);
 
-const EMAIL_RE = /[A-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi;
+const EMAIL_RE = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi;
 const MAX_UNZIPPED_BYTES = 12 * 1024 * 1024;
 
 function decodeEntities(value) {
