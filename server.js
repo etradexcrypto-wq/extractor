@@ -28,7 +28,7 @@ app.use((req, res, next) => {
   });
   next();
 });
-app.use(express.json({ limit: '1mb', strict: true }));
+app.use(express.json({ limit: '5mb', strict: true }));
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: isProduction ? '1h' : 0 }));
 
 const attempts = new Map();
@@ -138,7 +138,7 @@ app.post('/api/extract', checkSameOrigin, requireSession, rateLimit({ limit: 40,
   try {
     const text = req.body?.text;
     if (typeof text !== 'string' || !text.trim()) return res.status(400).json({ error: 'Paste some text or enter a website URL.' });
-    if (Buffer.byteLength(text, 'utf8') > 250_000) return res.status(413).json({ error: 'Text input is too large. Limit: 250 KB.' });
+    if (Buffer.byteLength(text, 'utf8') > 4_000_000) return res.status(413).json({ error: 'Text input is too large. Limit: 4 MB.' });
     if (/^https?:\/\//i.test(text.trim())) {
       const result = await scrapeUrl(text.trim(), clamp(req.body.maxPages, 5, 5));
       const map = new Map();
