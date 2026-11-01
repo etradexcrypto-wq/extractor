@@ -4,9 +4,16 @@
   "private": true,
   "description": "PIN-protected email extraction from text, public websites, documents, and images.",
   "main": "server.js",
-  "engines": { "node": ">=22.3.0 <23" },
-  "scripts": { "start": "node server.js", "dev": "node server.js", "test": "node --test" },
+  "engines": {
+    "node": ">=22.3.0 <23"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "node --test"
+  },
   "dependencies": {
+    "@napi-rs/canvas": "^1.1.0",
     "dotenv": "^18.0.9",
     "express": "^4.22.3",
     "jszip": "^3.10.2",
