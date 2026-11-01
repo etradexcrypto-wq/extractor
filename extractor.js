@@ -3,6 +3,11 @@
 
 const path = require('node:path');
 const os = require('node:os');
+const canvas = require('@napi-rs/canvas');
+if (typeof globalThis.DOMMatrix === 'undefined') globalThis.DOMMatrix = canvas.DOMMatrix;
+if (typeof globalThis.ImageData  === 'undefined') globalThis.ImageData  = canvas.ImageData;
+if (typeof globalThis.Path2D     === 'undefined') globalThis.Path2D     = canvas.Path2D;
+
 const { PDFParse } = require('pdf-parse');
 const mammoth = require('mammoth');
 const JSZip = require('jszip');
