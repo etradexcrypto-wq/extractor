@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1020">
+  <meta name="description" content="Extract Gmail, Yahoo, AOL, Hotmail, and iCloud addresses from text, public URLs, documents, and images.">
+  <title>MailSift — Email Extractor</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/script.js" defer></script>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="MailSift home"><span class="brand-mark">M</span><span>MailSift<span class="brand-sub">EMAIL EXTRACTOR</span></span></a>
+      <span class="privacy-pill"><span class="live-dot"></span> Private session</span>
+    </header>
+
+    <main>
+      <section id="lockScreen" class="lock-wrap" aria-labelledby="lockTitle">
+        <div class="lock-card">
+          <div class="lock-icon" aria-hidden="true">⌑</div>
+          <p class="eyebrow">PIN-PROTECTED WORKSPACE</p>
+          <h1 id="lockTitle">Your workspace is locked</h1>
+          <p class="muted">Enter your access PIN to start an extraction session.</p>
+          <form id="pinForm">
+            <label for="pinInput">Access PIN</label>
+            <div class="pin-row"><input id="pinInput" name="pin" type="password" inputmode="numeric" autocomplete="current-password" maxlength="64" required aria-describedby="pinStatus"><button class="button primary" id="unlockBtn" type="submit">Unlock workspace <span aria-hidden="true">→</span></button></div>
+          </form>
+          <div id="pinStatus" class="status" role="status" aria-live="polite"></div>
+          <p class="lock-note">Your PIN is checked by the server. Extraction only unlocks after verification.</p>
+        </div>
+      </section>
+
+      <section id="workspace" class="hidden" aria-label="Email extraction workspace">
+        <div class="hero">
+          <div><p class="eyebrow">CONTACT DATA, ORGANIZED</p><h1>Find the emails<br><span>already in your files.</span></h1><p class="muted hero-copy">Scan text, public web pages, documents, and images. Results are filtered to Gmail, Yahoo, AOL, Hotmail, and iCloud addresses.</p></div>
+          <div class="hero-stamp"><span class="stamp-icon">✳</span><span>NO API KEY<br>REQUIRED</span></div>
+        </div>
+
+        <div class="feature-grid">
+          <section class="panel panel-large" aria-labelledby="pasteTitle">
+            <div class="panel-heading"><div><span class="step">01</span><h2 id="pasteTitle">Paste text or scan a URL</h2></div><span class="mini-tag">TEXT · WEBSITE</span></div>
+            <textarea id="textInput" placeholder="Paste a list, message, or public website URL…" spellcheck="false"></textarea>
+            <div class="panel-footer"><span class="microcopy">Tip: paste a URL to scan its contact/about pages.</span><div class="actions"><button class="button ghost" id="clearTextBtn" type="button">Clear</button><button class="button primary" id="extractBtn" type="button">Extract emails <span aria-hidden="true">→</span></button></div></div>
+            <div id="textStatus" class="status" role="status" aria-live="polite"></div>
+          </section>
+
+          <section class="panel" aria-labelledby="uploadTitle">
+            <div class="panel-heading"><div><span class="step">02</span><h2 id="uploadTitle">Upload files</h2></div><span class="mini-tag">OCR READY</span></div>
+            <label id="dropZone" class="drop-zone" for="fileInput"><span class="upload-icon" aria-hidden="true">↑</span><strong>Drop files here or <u>browse</u></strong><span class="microcopy">PDF, DOCX, ODF, TXT, CSV, HTML, images</span><span class="microcopy">Up to 10 files · 4 MB combined</span></label>
+            <input id="fileInput" type="file" multiple hidden accept=".pdf,.docx,.odt,.ods,.odp,.odf,.fodt,.fods,.fodp,.txt,.csv,.tsv,.html,.htm,.md,.json,.xml,.png,.jpg,.jpeg,.gif,.bmp,.webp,.tif,.tiff">
+            <div id="fileNames" class="file-names" aria-live="polite"></div>
+            <div class="panel-footer"><span class="microcopy">Images are read with built-in OCR.</span><button class="button primary full-mobile" id="uploadBtn" type="button">Scan selected files <span aria-hidden="true">→</span></button></div>
+            <div id="fileStatus" class="status" role="status" aria-live="polite"></div>
+            <div id="fileResults" class="file-results"></div>
+          </section>
+
+          <section class="panel panel-wide" aria-labelledby="bulkTitle">
+            <div class="panel-heading"><div><span class="step">03</span><h2 id="bulkTitle">Scan multiple websites</h2></div><span class="mini-tag">UP TO 10 URLS</span></div>
+            <textarea id="bulkInput" class="bulk-area" placeholder="https://example.com&#10;https://another-site.com" spellcheck="false"></textarea>
+            <div class="panel-footer"><span class="microcopy">Public sites only · max 3 pages per site.</span><button class="button primary" id="bulkBtn" type="button">Scan websites <span aria-hidden="true">→</span></button></div>
+            <div id="bulkStatus" class="status" role="status" aria-live="polite"></div>
+          </section>
+        </div>
+
+        <section id="resultsCard" class="results panel hidden" aria-labelledby="resultsTitle">
+          <div class="results-head"><div><p class="eyebrow">EXTRACTION COMPLETE</p><h2 id="resultsTitle">Your results <span id="resultCount" class="count-badge">0</span></h2><p id="resultMeta" class="microcopy"></p></div><div class="actions"><button class="button ghost" id="copyBtn" type="button">Copy all</button><button class="button primary" id="downloadBtn" type="button">Download .txt <span aria-hidden="true">↓</span></button></div></div>
+          <div id="output" class="email-list" aria-live="polite"></div>
+          <p class="disclaimer">“Valid” here means a well-formed address using one of the five allowed providers. This tool does not test whether a mailbox is active.</p>
+        </section>
+      </section>
+    </main>
+    <footer class="footer"><span>MailSift · Runs without a paid email-verification API</span><button id="logoutBtn" class="text-button hidden" type="button">Lock workspace</button></footer>
+  </div>
+</body>
+</html>
