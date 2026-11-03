@@ -161,7 +161,7 @@ app.post('/api/extract-files', checkSameOrigin, requireSession, rateLimit({ limi
     const files = req.files || [];
     if (!files.length) return res.status(400).json({ error: 'Select at least one supported file.' });
     if (files.reduce((sum, file) => sum + file.size, 0) > MAX_UPLOAD_BYTES) {
-      return res.status(413).json({ error: 'Keep the combined file size under 4 MB (Vercel serverless request limit).' });
+      return res.status(413).json({ error: 'Keep the combined file size at or below 4 MB. Your hosting provider may impose a lower request limit.' });
     }
     const results = [];
     const map = new Map();
