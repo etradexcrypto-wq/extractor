@@ -1,4 +1,3 @@
-
 'use strict';
 
 const path = require('node:path');
@@ -6,14 +5,6 @@ const os = require('node:os');
 
 const mammoth = require('mammoth');
 const JSZip = require('jszip');
-
-const ALLOWED_DOMAINS = new Set([
-  'yahoo.com',
-  'aol.com',
-  'gmail.com',
-  'hotmail.com',
-  'icloud.com'
-]);
 
 const EMAIL_RE = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi;
 const MAX_UNZIPPED_BYTES = 12 * 1024 * 1024;
@@ -82,7 +73,13 @@ function isAllowedEmail(candidate) {
     domain.includes('..')
   ) return false;
 
-  return ALLOWED_DOMAINS.has(domain);
+  // Accept any domain — no allowlist.
+  // Require at least one dot and a TLD of 2+ letters.
+  if (!/^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)*\.[a-z]{2,}$/i.test(domain)) {
+    return false;
+  }
+
+  return true;
 }
 
 function extractEmails(input) {
@@ -240,7 +237,6 @@ async function extractFromFile(file) {
 }
 
 module.exports = {
-  ALLOWED_DOMAINS: [...ALLOWED_DOMAINS],
   extractEmails,
   extractFileText,
   extractFromFile,
